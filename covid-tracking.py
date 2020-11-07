@@ -26,6 +26,10 @@ class MainWindow:
             tkinter.messagebox.showinfo("Report","This country is not on the list")
         else:
             tkinter.messagebox.showinfo("Report","Data in "+result[0]+" is:\n"+"Total Case: "+result[1]+"\n"+"New Case: "+result[2]+"\n"+"Total Deaths: "+result[3]+"\n"+"Total Recovered: "+result[4]+"\n"+"Avtive Cases: "+result[5]+"\n")
+            if result[6]==False:
+                tkinter.messagebox.showinfo("Report","This country does not have a high death rate.")
+            else :
+                tkinter.messagebox.showinfo("Report","This country have a high death rate.")
  
 
 
@@ -69,10 +73,10 @@ totalCases = 0
 position = 0
 
 for i in countryName:
+    data[ind].append(0)
     ind = countryName.index(i)
     totalCases += int(data[ind][1])
     totalDeath += int(data[ind][3])
-
 
 aveDeathRate = totalDeath / totalCases
 
@@ -80,6 +84,7 @@ position = 0
 for i in countryName:
     ind = countryName.index(i)
     if ((int(data[ind][3]))/(int(data[ind][1]))) > aveDeathRate:
+        data[ind][6]=1
         print("This country, " + i + " have a high death risk.")
 
 #user windows
