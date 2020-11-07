@@ -1,6 +1,7 @@
 from tkinter import *
 import tkinter.messagebox
  
+ #user interface
 class MainWindow:
     def __init__(self):
         self.frame = Tk()
@@ -17,35 +18,69 @@ class MainWindow:
  
         self.frame.mainloop()
 
+    ##searching bottom
     def buttonListener1(self,event):
         name = self.input_name.get()
         result = search(name)
-        tkinter.messagebox.showinfo("Report","Data in "+result[0]+" is:\n"+"Total Case: "+result[1]+"\n"+"New Case: "+result[2]+"\n"+"Total Deaths: "+result[3]+"\n"+"Total Recovered: "+result[4]+"\n"+"Avtive Cases: "+result[5]+"\n")
+        if result==False:
+            tkinter.messagebox.showinfo("Report","This country is not on the list")
+        else:
+            tkinter.messagebox.showinfo("Report","Data in "+result[0]+" is:\n"+"Total Case: "+result[1]+"\n"+"New Case: "+result[2]+"\n"+"Total Deaths: "+result[3]+"\n"+"Total Recovered: "+result[4]+"\n"+"Avtive Cases: "+result[5]+"\n")
  
 
 
 
-#read file
-infile = open('testing.txt','r')
+## Read datas
+infile = open("testing.txt","r")
 content = infile.read()
-data = content.split('\n')
-country_number = 0
+data = content.split("\n")
+countryNum = 0
 for i in data:
-    data[country_number] = i.split(',')
-    k=0
-    for ele in data[country_number]:
-        data[country_number][k]= ele.strip(' []"')
-        k+=1
-    country_number+=1
-print (data) 
-infile.close()
+    data[countryNum] = i.split(",")
+    k = 0
+    for element in data[countryNum]:
+        data[countryNum][k] = element.strip(' []"')
+        k += 1
+    countryNum += 1
 
+
+countryName = []
+
+i = 0
+while i <= 52:
+    countryName.append(data[i][0])
+    i += 1
+
+
+
+#searching data by using country name
 def search(name):
     i = 0
     for ele in data:
         if ele[0]==name:
-            break
+            return data[i]
         i+=1
-    return data[i]
+    return(False)    
 
+
+#reminder of dangerous region
+totalDeath = 0
+totalCases = 0
+position = 0
+
+for i in countryName:
+    ind = countryName.index(i)
+    totalCases += int(data[ind][1])
+    totalDeath += int(data[ind][3])
+
+
+aveDeathRate = totalDeath / totalCases
+
+position = 0
+for i in countryName:
+    ind = countryName.index(i)
+    if ((int(data[ind][3]))/(int(data[ind][1]))) > aveDeathRate:
+        print("This country, " + i + " have a high death risk.")
+
+#user windows
 frame = MainWindow()
