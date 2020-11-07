@@ -73,8 +73,8 @@ totalCases = 0
 position = 0
 
 for i in countryName:
-    data[ind].append(0)
     ind = countryName.index(i)
+    data[ind].append(0)
     totalCases += int(data[ind][1])
     totalDeath += int(data[ind][3])
 
