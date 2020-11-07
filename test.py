@@ -39,6 +39,7 @@ aveDeathRate = totalDeath / totalCases
 position = 0
 for i in countryName:
     ind = countryName.index(i)
-    if ((int(data[position][3]))/(int(data[position][1]))) < aveDeathRate:
+    if ((int(data[position][3]))/(int(data[position][1]))) > aveDeathRate:
         print("This country, " + i + " have a high risk.")
+ print("Process done.")
 
