@@ -15,11 +15,9 @@ for i in data:
 countryName = []
 
 i = 0
-while i <= 53:
+while i <= 52:
     countryName.append(data[i][0])
     i += 1
-
-del(countryName[-1])
 
 
 
@@ -30,16 +28,14 @@ position = 0
 
 for i in countryName:
     ind = countryName.index(i)
-    totalCases += int(data[position][1])
-    totalDeath += int(data[position][3])
-    position += 1
+    totalCases += int(data[ind][1])
+    totalDeath += int(data[ind][3])
+
 
 aveDeathRate = totalDeath / totalCases
 
 position = 0
 for i in countryName:
     ind = countryName.index(i)
-    if ((int(data[position][3]))/(int(data[position][1]))) > aveDeathRate:
-        print("This country, " + i + " have a high risk.")
- print("Process done.")
-
+    if ((int(data[ind][3]))/(int(data[ind][1]))) > aveDeathRate:
+        print("This country, " + i + " have a high death risk.")
